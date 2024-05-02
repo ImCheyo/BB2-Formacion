@@ -1,46 +1,30 @@
-package com.example.bb2formacion.model;
+package com.example.bb2formacion.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+public class UserDTO {
 
-import javax.persistence.*;
-import java.util.Set;
-
-@Entity
-@Table(name="`user`")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private Set<Item> items;
-
-    public User(Long id, String name, String email, String password, Set<Item> items) {
+    public UserDTO(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.items = items;
     }
 
-    public User(){
-        
+    public UserDTO(){
+
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", items=" + items +
                 '}';
     }
 
@@ -74,13 +58,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Set<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<Item> items) {
-        this.items = items;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.bb2formacion.model;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,6 +31,7 @@ public class Item {
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "supplier_id")
     )
+    @JsonIgnore
     private Set<Supplier> suppliers;
 
     @OneToMany(mappedBy = "item")

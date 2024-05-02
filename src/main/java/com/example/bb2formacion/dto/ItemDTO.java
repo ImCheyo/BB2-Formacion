@@ -2,12 +2,9 @@ package com.example.bb2formacion.dto;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
 import com.example.bb2formacion.model.User;
-import lombok.Data;
 
 import java.util.Date;
-import java.util.Set;
 
-@Data
 public class ItemDTO {
 
     private Long id;
@@ -15,15 +12,15 @@ public class ItemDTO {
     private Double price;
     private ItemStateEnum itemStateEnum;
     private Date create_At;
-    private User user;
+    private UserDTO userDTO;
 
-    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, User user) {
+    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, UserDTO userDTO) {
         this.id = id;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
         this.create_At = create_At;
-        this.user = user;
+        this.userDTO = userDTO;
     }
 
     public ItemDTO(){
@@ -38,7 +35,7 @@ public class ItemDTO {
                 ", price=" + price +
                 ", itemStateEnum=" + itemStateEnum +
                 ", create_At=" + create_At +
-                ", user=" + user +
+                ", userDTO=" + userDTO +
                 '}';
     }
 
@@ -82,11 +79,11 @@ public class ItemDTO {
         this.create_At = create_At;
     }
 
-    public User getUser() {
-        return user;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }
