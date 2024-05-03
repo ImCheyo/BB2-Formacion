@@ -1,11 +1,8 @@
 package com.example.bb2formacion.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Set;
 
 @Entity
@@ -20,6 +17,7 @@ public class Supplier {
     private String country;
 
     @ManyToMany(mappedBy = "suppliers")
+    @JsonIgnore
     private Set<Item> items;
 
     public Supplier(Long id, String name, String country, Set<Item> items) {
@@ -39,7 +37,6 @@ public class Supplier {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", items=" + items +
                 '}';
     }
 

@@ -7,13 +7,11 @@ public class SupplierDTO {
     private Long id;
     private String name;
     private String country;
-    private Set<ItemDTO> items;
 
-    public SupplierDTO(Long id, String name, String country, Set<ItemDTO> items) {
+    public SupplierDTO(Long id, String name, String country) {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.items = items;
     }
 
     public SupplierDTO(){
@@ -26,7 +24,6 @@ public class SupplierDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
-                ", items=" + items +
                 '}';
     }
 
@@ -52,13 +49,5 @@ public class SupplierDTO {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public Set<ItemDTO> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<ItemDTO> items) {
-        this.items = items;
     }
 }

@@ -2,7 +2,8 @@ package com.example.bb2formacion.model;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name="`item`")
 public class Item {
 
@@ -27,11 +27,10 @@ public class Item {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "item_suppliers",
+            name = "item_supplier",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "supplier_id")
     )
-    @JsonIgnore
     private Set<Supplier> suppliers;
 
     @OneToMany(mappedBy = "item")
@@ -66,8 +65,6 @@ public class Item {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", itemStateEnum=" + itemStateEnum +
-                ", suppliers=" + suppliers +
-                ", reductions=" + reductions +
                 ", create_At=" + create_At +
                 ", user=" + user +
                 '}';

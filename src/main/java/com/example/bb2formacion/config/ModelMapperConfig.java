@@ -21,6 +21,8 @@ public class ModelMapperConfig {
         modelMapper.typeMap(Item.class, ItemDTO.class)
                 .addMappings(mapper -> {
                    mapper.map(src -> src.getUser(), ItemDTO::setUserDTO);
+                   mapper.map(src -> src.getSuppliers(), ItemDTO::setSuppliersDTO);
+                   mapper.map(src -> src.getReductions(), ItemDTO::setReductionsDTO);
                 });
 
         return modelMapper;

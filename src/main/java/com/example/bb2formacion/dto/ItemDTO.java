@@ -4,6 +4,7 @@ import com.example.bb2formacion.enums.ItemStateEnum;
 import com.example.bb2formacion.model.User;
 
 import java.util.Date;
+import java.util.Set;
 
 public class ItemDTO {
 
@@ -12,14 +13,18 @@ public class ItemDTO {
     private Double price;
     private ItemStateEnum itemStateEnum;
     private Date create_At;
+    private Set<SupplierDTO> suppliersDTO;
+    private Set<ReductionDTO> reductionsDTO;
     private UserDTO userDTO;
 
-    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, UserDTO userDTO) {
+    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, Set<SupplierDTO> suppliersDTO, Set<ReductionDTO> reductionsDTO, UserDTO userDTO) {
         this.id = id;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
         this.create_At = create_At;
+        this.suppliersDTO = suppliersDTO;
+        this.reductionsDTO = reductionsDTO;
         this.userDTO = userDTO;
     }
 
@@ -77,6 +82,22 @@ public class ItemDTO {
 
     public void setCreate_At(Date create_At) {
         this.create_At = create_At;
+    }
+
+    public Set<SupplierDTO> getSuppliersDTO() {
+        return suppliersDTO;
+    }
+
+    public void setSuppliersDTO(Set<SupplierDTO> suppliersDTO) {
+        this.suppliersDTO = suppliersDTO;
+    }
+
+    public Set<ReductionDTO> getReductionsDTO() {
+        return reductionsDTO;
+    }
+
+    public void setReductionsDTO(Set<ReductionDTO> reductionsDTO) {
+        this.reductionsDTO = reductionsDTO;
     }
 
     public UserDTO getUserDTO() {

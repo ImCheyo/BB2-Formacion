@@ -1,6 +1,8 @@
 package com.example.bb2formacion.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -30,7 +32,7 @@ public class User {
     }
 
     public User(){
-        
+
     }
 
     @Override
@@ -40,7 +42,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", items=" + items +
                 '}';
     }
 
