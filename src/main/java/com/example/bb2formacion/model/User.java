@@ -1,8 +1,6 @@
 package com.example.bb2formacion.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,6 +13,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_code", unique = true)
+    private Integer userCode;
+
     private String name;
     private String email;
     private String password;
@@ -23,8 +24,9 @@ public class User {
     @JsonIgnore
     private Set<Item> items;
 
-    public User(Long id, String name, String email, String password, Set<Item> items) {
+    public User(Long id, Integer userCode, String name, String email, String password, Set<Item> items) {
         this.id = id;
+        this.userCode = userCode;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -39,6 +41,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", userCode=" + userCode +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -51,6 +54,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(Integer userCode) {
+        this.userCode = userCode;
     }
 
     public String getName() {

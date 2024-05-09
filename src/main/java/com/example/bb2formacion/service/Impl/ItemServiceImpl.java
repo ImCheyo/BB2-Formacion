@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -44,70 +41,21 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findById(id);
     }
 
+    @Override
+    public Optional<Item> getItemByItemCode(Integer itemCode) {
+        return itemRepository.getItemByItemCode(itemCode);
+    }
+
     @Transactional
     @Override
-    public Item createOrUpdateItem(Item item) {
+    public Item createItem(Item item) {
 
         Set<Supplier> suppliers = new HashSet<>();
         Set<Reduction> reductions = new HashSet<>();
 
-        if (item.getId() != null) {
-            Item existingItem = itemRepository.findById(item.getId()).orElse(null);
-            if (existingItem != null) {
-                existingItem.setPrice(item.getPrice() != null ? item.getPrice() : null);
-                existingItem.setDescription(item.getDescription() != null ? item.getDescription() : null);
-                existingItem.setItemStateEnum(item.getItemStateEnum() != null ? item.getItemStateEnum(): null);
-
-                if (item.getSuppliers() != null) {
-                    for (Supplier supplier : item.getSuppliers()) {
-                        Supplier existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
-                        if (existingSupplier == null) {
-                            return null;//El supplier con ese id no existe
-                        }
-                        if(existingSupplier.equals(supplier)){
-                            continue;
-                        }
-                        suppliers.add(existingSupplier);
-                    }
-                    existingItem.setSuppliers(suppliers);
-                }
-
-                if (item.getReductions() != null) {
-                    for (Reduction reduction : item.getReductions()) {
-                        Reduction existingReduction = reductionRepository.findById(reduction.getId()).orElse(null);
-                        if (existingReduction == null) {
-                            return null;//El reduction con ese id no existe
-                        }
-                        if(existingReduction.equals(reduction)){
-                            continue;
-                        }
-                        reductions.add(existingReduction);
-                    }
-                    existingItem.setReductions(reductions);
-                }
-
-                User existingUser = userRepository.findById(existingItem.getUser().getId()).orElse(null);
-
-                if (existingUser == null) {
-                    return null;//El user con ese id no existe
-                }
-
-                existingItem.setUser(existingUser);
-
-                for (Reduction reduction : existingItem.getReductions()) {
-                    reduction.setItem(existingItem);
-                    reductionRepository.save(reduction);
-                }
-
-                return itemRepository.save(existingItem);
-            } else {
-                return null; //No existe el item con ese ID
-            }
-        } else {
-
             if (item.getSuppliers() != null) {
                 for (Supplier supplier : item.getSuppliers()) {
-                    Supplier existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
+                    Supplier existingSupplier = supplierRepository.getSupplierBySupplierCode(supplier.getSupplierCode()).orElse(null);
                     if (existingSupplier == null) {
                         return null;//El supplier con ese id no existe
                     }
@@ -118,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
 
             if (item.getReductions() != null) {
                 for (Reduction reduction : item.getReductions()) {
-                    Reduction existingReduction = reductionRepository.findById(reduction.getId()).orElse(null);
+                    Reduction existingReduction = reductionRepository.getReductionByReductionCode(reduction.getReductionCode()).orElse(null);
                     if (existingReduction == null) {
                         return null;//El reduction con ese id no existe
                     }
@@ -127,7 +75,7 @@ public class ItemServiceImpl implements ItemService {
                 item.setReductions(reductions);
             }
 
-            User existingUser = userRepository.findById(item.getUser().getId()).orElse(null);
+            User existingUser = userRepository.getUserByUserCode(item.getUser().getUserCode()).orElse(null);
 
             if (existingUser == null) {
                 return null; //No existe el usuario con ese ID
@@ -135,6 +83,7 @@ public class ItemServiceImpl implements ItemService {
 
             item.setUser(existingUser);
             item.setItemStateEnum(ItemStateEnum.ACTIVE);
+            item.setItemCode(itemRepository.getNextItemCode());
 
             itemRepository.save(item);
 
@@ -143,7 +92,67 @@ public class ItemServiceImpl implements ItemService {
                 reductionRepository.save(reduction);
             }
             return item;
-        }
+
+    }
+
+    @Transactional
+    @Override
+    public Item updateItem(Integer itemCode, Item item){
+
+        Set<Supplier> suppliers = new HashSet<>();
+        Set<Reduction> reductions = new HashSet<>();
+
+            Item existingItem = itemRepository.getItemByItemCode(itemCode).orElse(null);
+            if (existingItem != null) {
+                existingItem.setPrice(item.getPrice() != null ? item.getPrice() : null);
+                existingItem.setDescription(item.getDescription() != null ? item.getDescription() : null);
+                existingItem.setItemStateEnum(item.getItemStateEnum() != null ? item.getItemStateEnum(): null);
+
+                if (item.getSuppliers() != null) {
+                    for (Supplier supplier : item.getSuppliers()) {
+                        Supplier existingSupplier = supplierRepository.getSupplierBySupplierCode(supplier.getSupplierCode()).orElse(null);
+                        if (existingSupplier == null) {
+                            return null;//El supplier con ese id no existe
+                        }
+                        suppliers.add(existingSupplier);
+                    }
+                    existingItem.setSuppliers(suppliers);
+                }
+
+                for (Reduction reduction : existingItem.getReductions()){
+                    if(!item.getReductions().contains(reduction)){
+                        reduction.setItem(null);
+                        reductionRepository.save(reduction);
+                    }
+                }
+
+                for (Reduction reduction : item.getReductions()){
+                    Reduction existingReduction = reductionRepository.getReductionByReductionCode(reduction.getReductionCode()).orElse(null);
+                    if(existingReduction == null){
+                        return null; //El reduction con ese codigo no existe
+                    }
+                    existingReduction.setItem(existingItem);
+                    reductionRepository.save(existingReduction);
+                }
+
+                existingItem.setReductions(new HashSet<>(item.getReductions()));
+
+                User existingUser = userRepository.getUserByUserCode(item.getUser().getUserCode()).orElse(null);
+
+                if (existingUser == null) {
+                    return null;//El user con ese id no existe
+                }
+
+                existingItem.setUser(existingUser);
+
+                existingItem.setCreate_At(existingItem.getCreate_At());
+                existingItem.setItemCode(existingItem.getItemCode());
+
+                return itemRepository.save(existingItem);
+            } else {
+                return null; //No existe el item con ese ID
+            }
+
     }
 
 }

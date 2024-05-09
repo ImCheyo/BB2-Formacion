@@ -3,12 +3,14 @@ package com.example.bb2formacion.dto;
 public class UserDTO {
 
     private Long id;
+    private Integer userCode;
     private String name;
     private String email;
     private String password;
 
-    public UserDTO(Long id, String name, String email, String password) {
+    public UserDTO(Long id, Integer userCode,String name, String email, String password) {
         this.id = id;
+        this.userCode = userCode;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -22,6 +24,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
+                ", userCode='" + userCode + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
@@ -34,6 +37,14 @@ public class UserDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(Integer userCode) {
+        this.userCode = userCode;
     }
 
     public String getName() {

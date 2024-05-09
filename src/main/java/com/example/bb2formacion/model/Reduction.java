@@ -13,6 +13,9 @@ public class Reduction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "reduction_code", unique = true)
+    private Integer reductionCode;
+
     private Double reducedPrice;
     private Date startDate;
     private Date endDate;
@@ -22,8 +25,9 @@ public class Reduction {
     @JsonIgnore
     private Item item;
 
-    public Reduction(Long id, Double reducedPrice, Date startDate, Date endDate, Item item) {
+    public Reduction(Long id, Integer reductionCode, Double reducedPrice, Date startDate, Date endDate, Item item) {
         this.id = id;
+        this.reductionCode = reductionCode;
         this.reducedPrice = reducedPrice;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -38,6 +42,7 @@ public class Reduction {
     public String toString() {
         return "Reduction{" +
                 "id=" + id +
+                ", reductionCode=" + reductionCode +
                 ", reducedPrice=" + reducedPrice +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
@@ -51,6 +56,14 @@ public class Reduction {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getReductionCode() {
+        return reductionCode;
+    }
+
+    public void setReductionCode(Integer reductionCode) {
+        this.reductionCode = reductionCode;
     }
 
     public Double getReducedPrice() {

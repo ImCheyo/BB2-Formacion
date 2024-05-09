@@ -5,11 +5,13 @@ import java.util.Set;
 public class SupplierDTO {
 
     private Long id;
+    private Integer supplierCode;
     private String name;
     private String country;
 
-    public SupplierDTO(Long id, String name, String country) {
+    public SupplierDTO(Long id, Integer supplierCode, String name, String country) {
         this.id = id;
+        this.supplierCode = supplierCode;
         this.name = name;
         this.country = country;
     }
@@ -22,6 +24,7 @@ public class SupplierDTO {
     public String toString() {
         return "SupplierDTO{" +
                 "id=" + id +
+                ", supplierCode=" + supplierCode +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';
@@ -33,6 +36,14 @@ public class SupplierDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getSupplierCode() {
+        return supplierCode;
+    }
+
+    public void setSupplierCode(Integer supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
     public String getName() {

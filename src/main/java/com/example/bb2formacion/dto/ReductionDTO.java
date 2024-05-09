@@ -6,12 +6,14 @@ import java.util.Set;
 public class ReductionDTO {
 
     private Long id;
+    private Integer reductionCode;
     private Double reducedPrice;
     private Date startDate;
     private Date endDate;
 
-    public ReductionDTO(Long id, Double reducedPrice, Date startDate, Date endDate) {
+    public ReductionDTO(Long id, Integer reductionCode, Double reducedPrice, Date startDate, Date endDate) {
         this.id = id;
+        this.reductionCode = reductionCode;
         this.reducedPrice = reducedPrice;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -25,6 +27,7 @@ public class ReductionDTO {
     public String toString() {
         return "ReductionDTO{" +
                 "id=" + id +
+                ", reductionCode=" + reductionCode +
                 ", reducedPrice=" + reducedPrice +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
@@ -37,6 +40,14 @@ public class ReductionDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getReductionCode() {
+        return reductionCode;
+    }
+
+    public void setReductionCode(Integer reductionCode) {
+        this.reductionCode = reductionCode;
     }
 
     public Double getReducedPrice() {

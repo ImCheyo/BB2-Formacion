@@ -1,7 +1,6 @@
 package com.example.bb2formacion.dto;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
-import com.example.bb2formacion.model.User;
 
 import java.util.Date;
 import java.util.Set;
@@ -9,6 +8,7 @@ import java.util.Set;
 public class ItemDTO {
 
     private Long id;
+    private Integer itemCode;
     private String description;
     private Double price;
     private ItemStateEnum itemStateEnum;
@@ -17,8 +17,9 @@ public class ItemDTO {
     private Set<ReductionDTO> reductionsDTO;
     private UserDTO userDTO;
 
-    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, Set<SupplierDTO> suppliersDTO, Set<ReductionDTO> reductionsDTO, UserDTO userDTO) {
+    public ItemDTO(Long id, Integer itemCode, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, Set<SupplierDTO> suppliersDTO, Set<ReductionDTO> reductionsDTO, UserDTO userDTO) {
         this.id = id;
+        this.itemCode = itemCode;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
@@ -36,6 +37,7 @@ public class ItemDTO {
     public String toString() {
         return "ItemDTO{" +
                 "id=" + id +
+                ", itemCode=" + itemCode +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", itemStateEnum=" + itemStateEnum +
@@ -50,6 +52,14 @@ public class ItemDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(Integer itemCode) {
+        this.itemCode = itemCode;
     }
 
     public String getDescription() {

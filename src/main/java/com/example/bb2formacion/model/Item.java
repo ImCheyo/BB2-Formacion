@@ -1,9 +1,6 @@
 package com.example.bb2formacion.model;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -17,6 +14,9 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "item_code", unique = true)
+    private Integer itemCode;
 
     private String description;
 
@@ -43,8 +43,9 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Item(Long id, String description, Double price, ItemStateEnum itemStateEnum, Set<Supplier> suppliers, Set<Reduction> reductions, Date create_At, User user) {
+    public Item(Long id, Integer itemCode, String description, Double price, ItemStateEnum itemStateEnum, Set<Supplier> suppliers, Set<Reduction> reductions, Date create_At, User user) {
         this.id = id;
+        this.itemCode = itemCode;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
@@ -58,24 +59,20 @@ public class Item {
 
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", itemStateEnum=" + itemStateEnum +
-                ", create_At=" + create_At +
-                ", user=" + user +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(Integer itemCode) {
+        this.itemCode = itemCode;
     }
 
     public String getDescription() {

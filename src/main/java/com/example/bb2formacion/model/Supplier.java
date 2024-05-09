@@ -13,6 +13,9 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "supplier_code", unique = true)
+    private Integer supplierCode;
+
     private String name;
     private String country;
 
@@ -20,8 +23,9 @@ public class Supplier {
     @JsonIgnore
     private Set<Item> items;
 
-    public Supplier(Long id, String name, String country, Set<Item> items) {
+    public Supplier(Long id, Integer supplierCode, String name, String country, Set<Item> items) {
         this.id = id;
+        this.supplierCode = supplierCode;
         this.name = name;
         this.country = country;
         this.items = items;
@@ -35,6 +39,7 @@ public class Supplier {
     public String toString() {
         return "Supplier{" +
                 "id=" + id +
+                ", supplierCode=" + supplierCode +
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 '}';
@@ -46,6 +51,14 @@ public class Supplier {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getSupplierCode() {
+        return supplierCode;
+    }
+
+    public void setSupplierCode(Integer supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
     public String getName() {
