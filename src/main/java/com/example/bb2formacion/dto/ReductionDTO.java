@@ -1,19 +1,22 @@
 package com.example.bb2formacion.dto;
 
+import java.util.Date;
 import java.util.Set;
 
 public class ReductionDTO {
 
     private Long id;
-    private String name;
-    private String country;
-    private Set<ItemDTO> items;
+    private Integer reductionCode;
+    private Double reducedPrice;
+    private Date startDate;
+    private Date endDate;
 
-    public ReductionDTO(Long id, String name, String country, Set<ItemDTO> items) {
+    public ReductionDTO(Long id, Integer reductionCode, Double reducedPrice, Date startDate, Date endDate) {
         this.id = id;
-        this.name = name;
-        this.country = country;
-        this.items = items;
+        this.reductionCode = reductionCode;
+        this.reducedPrice = reducedPrice;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public ReductionDTO(){
@@ -24,9 +27,10 @@ public class ReductionDTO {
     public String toString() {
         return "ReductionDTO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", items=" + items +
+                ", reductionCode=" + reductionCode +
+                ", reducedPrice=" + reducedPrice +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 
@@ -38,27 +42,35 @@ public class ReductionDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getReductionCode() {
+        return reductionCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReductionCode(Integer reductionCode) {
+        this.reductionCode = reductionCode;
     }
 
-    public String getCountry() {
-        return country;
+    public Double getReducedPrice() {
+        return reducedPrice;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setReducedPrice(Double reducedPrice) {
+        this.reducedPrice = reducedPrice;
     }
 
-    public Set<ItemDTO> getItems() {
-        return items;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setItems(Set<ItemDTO> items) {
-        this.items = items;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

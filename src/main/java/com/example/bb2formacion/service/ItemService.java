@@ -9,6 +9,8 @@ public interface ItemService {
 
     List<Item> getAllItems();
     Optional<Item> getItemById(Long id);
+    Optional<Item> getItemByItemCode(Integer itemCode);
     Item createItem(Item item);
-    Item updateItem(Item item);
+    Item updateItem(Integer itemCode, Item item);
+
 }

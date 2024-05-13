@@ -1,7 +1,6 @@
 package com.example.bb2formacion.model;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
-import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -9,13 +8,15 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name="`item`")
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "item_code", unique = true)
+    private Integer itemCode;
 
     private String description;
 
@@ -26,7 +27,7 @@ public class Item {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "item_suppliers",
+            name = "item_supplier",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "supplier_id")
     )
@@ -42,8 +43,9 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Item(Long id, String description, Double price, ItemStateEnum itemStateEnum, Set<Supplier> suppliers, Set<Reduction> reductions, Date create_At, User user) {
+    public Item(Long id, Integer itemCode, String description, Double price, ItemStateEnum itemStateEnum, Set<Supplier> suppliers, Set<Reduction> reductions, Date create_At, User user) {
         this.id = id;
+        this.itemCode = itemCode;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
@@ -57,26 +59,20 @@ public class Item {
 
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", itemStateEnum=" + itemStateEnum +
-                ", suppliers=" + suppliers +
-                ", reductions=" + reductions +
-                ", create_At=" + create_At +
-                ", user=" + user +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(Integer itemCode) {
+        this.itemCode = itemCode;
     }
 
     public String getDescription() {

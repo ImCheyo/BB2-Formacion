@@ -1,16 +1,17 @@
-package com.example.bb2formacion.fillters;
+package com.example.bb2formacion.filters;
 
 import com.example.bb2formacion.dto.ItemDTO;
+import com.example.bb2formacion.dto.ReductionDTO;
 import com.example.bb2formacion.dto.SupplierDTO;
 import com.example.bb2formacion.model.Item;
+import com.example.bb2formacion.model.Reduction;
 import com.example.bb2formacion.model.Supplier;
 import com.example.bb2formacion.repository.SupplierRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
+@Component
 public class Convert {
 
     @Autowired
@@ -20,30 +21,6 @@ public class Convert {
 
     public Convert(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
-    }
-
-    public Item fromDtoToEntityItem(ItemDTO itemDTO){
-
-        if( itemDTO == null){
-            return null;
-        }
-
-        Item item = modelMapper.map(itemDTO, Item.class);
-
-        return item;
-
-    }
-
-    public Supplier fromDtoToEntitySupplier(SupplierDTO supplierDTO){
-
-        if( supplierDTO == null){
-            return null;
-        }
-
-        Supplier supplier = modelMapper.map(supplierDTO, Supplier.class);
-
-        return supplier;
-
     }
 
     public ItemDTO fromEntityToDtoItem(Item item){
@@ -65,4 +42,15 @@ public class Convert {
 
         return supplierDTO;
     }
+
+    public ReductionDTO fromEntityToDtoReduction(Reduction reduction){
+        if (reduction == null){
+            return null;
+        }
+
+        ReductionDTO reductionDTO = modelMapper.map(reduction, ReductionDTO.class);
+
+        return reductionDTO;
+    }
+
 }

@@ -1,29 +1,32 @@
 package com.example.bb2formacion.dto;
 
 import com.example.bb2formacion.enums.ItemStateEnum;
-import com.example.bb2formacion.model.User;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.Set;
 
-@Data
 public class ItemDTO {
 
     private Long id;
+    private Integer itemCode;
     private String description;
     private Double price;
     private ItemStateEnum itemStateEnum;
     private Date create_At;
-    private User user;
+    private Set<SupplierDTO> suppliersDTO;
+    private Set<ReductionDTO> reductionsDTO;
+    private UserDTO userDTO;
 
-    public ItemDTO(Long id, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, User user) {
+    public ItemDTO(Long id, Integer itemCode, String description, Double price, ItemStateEnum itemStateEnum, Date create_At, Set<SupplierDTO> suppliersDTO, Set<ReductionDTO> reductionsDTO, UserDTO userDTO) {
         this.id = id;
+        this.itemCode = itemCode;
         this.description = description;
         this.price = price;
         this.itemStateEnum = itemStateEnum;
         this.create_At = create_At;
-        this.user = user;
+        this.suppliersDTO = suppliersDTO;
+        this.reductionsDTO = reductionsDTO;
+        this.userDTO = userDTO;
     }
 
     public ItemDTO(){
@@ -34,11 +37,12 @@ public class ItemDTO {
     public String toString() {
         return "ItemDTO{" +
                 "id=" + id +
+                ", itemCode=" + itemCode +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", itemStateEnum=" + itemStateEnum +
                 ", create_At=" + create_At +
-                ", user=" + user +
+                ", userDTO=" + userDTO +
                 '}';
     }
 
@@ -48,6 +52,14 @@ public class ItemDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getItemCode() {
+        return itemCode;
+    }
+
+    public void setItemCode(Integer itemCode) {
+        this.itemCode = itemCode;
     }
 
     public String getDescription() {
@@ -82,11 +94,27 @@ public class ItemDTO {
         this.create_At = create_At;
     }
 
-    public User getUser() {
-        return user;
+    public Set<SupplierDTO> getSuppliersDTO() {
+        return suppliersDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setSuppliersDTO(Set<SupplierDTO> suppliersDTO) {
+        this.suppliersDTO = suppliersDTO;
+    }
+
+    public Set<ReductionDTO> getReductionsDTO() {
+        return reductionsDTO;
+    }
+
+    public void setReductionsDTO(Set<ReductionDTO> reductionsDTO) {
+        this.reductionsDTO = reductionsDTO;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }
